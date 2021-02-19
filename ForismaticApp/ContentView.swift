@@ -11,6 +11,7 @@ struct ContentView: View {
     
     //MARK: Stored properties
     @State var someText = "Hello, world!"
+    @State var someOtherText = "Hello, world!"
     
     //MARK: Computed properties
     var body: some View {
@@ -22,6 +23,8 @@ struct ContentView: View {
                     //invoke the function to get a quote
                     fetchQuote()
                 }
+            Text("-\(someOtherText)")
+                .padding()
             
             Button("Get another quote!"){
                 fetchQuote()
@@ -89,12 +92,15 @@ struct ContentView: View {
                 // DEBUG:
                 print("Quote data decoded from JSON successfully")
                 print("The quote is: \(decodedQuoteData.quoteText)")
+                print("The quote is: \(decodedQuoteData.quoteAuthor)")
+
 
                 // Now, update the UI on the main thread
                 DispatchQueue.main.async {
 
                     // Assign the result to the "someText" stored property
                     someText = decodedQuoteData.quoteText
+                    someOtherText = decodedQuoteData.quoteAuthor
 
                 }
 
